@@ -1,0 +1,129 @@
+<!-- public/views/goal-item.html -->
+
+<div class="goal-page" ng-show="loadComplete">
+	<div class="goal-page-header">
+		<div class="page-header">
+			<h3 ng-if="isGoal">{{ goal.name }} <small>goal</small></h3>
+			<h3 ng-if="!isGoal">{{ project.name }} <small>project</small></h3>
+		</div>
+		<div class="panel panel-default details-panel">
+			<div class="panel-body">
+				<div class="col-md-3" ng-show="isGoal">
+					<strong>Goal Begin Date:</strong> <span>{{ goal.beginDate ? goal.beginDate : "None" | date:'MM/dd/yyyy'}}</span><br />
+					<strong>Goal End Date:</strong> <span>{{ goal.endDate ? goal.endDate : "None" | date:'MM/dd/yyyy'}}</span><br/>
+					<strong>Goal Duration:</strong> <span>{{ timeDetails.goalDuration ? timeDetails.goalDuration + " days" : "None" }}</span>
+				</div>
+				<div class="col-md-3 text-center goal-percent" ng-show="isGoal">
+					<div class="percentComplete">{{ goal.percentComplete ? goal.percentComplete : "0" }}%</div>
+					<strong>Goal Complete</strong> 
+				</div>
+				<div ng-class="{'col-md-3 text-center': isGoal, 'col-md-6 text-right goal-percent': !isGoal}">
+					<div class="percentComplete">{{ subgoalPercentage }}%</div>
+					<strong>Subgoals Complete</strong> 
+				</div>
+				<div ng-class="{'col-md-3 text-right': isGoal, 'col-md-6 text-left': !isGoal}">
+					<strong>Subgoals Begin Date:</strong> <span>{{ timeDetails.subgoalBegin ? timeDetails.subgoalBegin : "None" | date:'MM/dd/yyyy'}}</span><br />
+					<strong>Subgoals End Date:</strong> <span>{{ timeDetails.subgoalEnd ? timeDetails.subgoalEnd : "None" | date:'MM/dd/yyyy'}}</span><br />
+					<strong>Subgoals Duration:</strong> <span>{{ timeDetails.subgoalDuration ? timeDetails.subgoalDuration + " days" : "None" }}</span>
+				</div>
+			</div>
+		</div>
+		<breadcrumbs ng-if="isGoal" project="project" trail="breadcrumbs" goal="goal"></breadcrumbs>
+	</div>
+	<div class="container content">
+		<div class="btn-group" dropdown>
+		  <button type="button" class="btn btn-primary" ng-click="goalActions.create(project._id, goal._id, goal.beginDate, goal.endDate)">Create</button>
+		  <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle>
+		    <span class="caret"></span>
+		    <span class="sr-only">Create</span>
+		  </button>
+		  <ul class="dropdown-menu" role="menu">
+		    <li><a href ng-click="goalActions.create(project._id, goal._id, goal.beginDate, goal.endDate)">Goal</a></li>
+		    <li><a href ng-click="noteActions.create(project._id, goal._id)">Note</a></li>
+		    <li><a href ng-click="milestoneActions.create(project._id, goal._id)">Milestone</a></li>
+		  </ul>
+		</div>
+		<div class="pull-right" ng-if="!isGoal">
+			<div class="btn-group">
+				<a class="btn btn-primary" href="/project/{{ project._id }}/manage">Manage Project</a>
+			</div>
+			<div class="btn-group">
+				<a class="btn btn-primary" href="/project/{{ project._id }}/categories">Edit Categories</a>
+			</div>
+		</div>
+		<div class="pull-right" ng-if="isGoal">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary" ng-click="goalActions.update(goal)">Edit</button>
+			</div>
+			<div class="btn-group">
+				<button type="button" class="btn btn-danger" ng-click="goalActions.delete(goal)">Delete</button>
+			</div>
+		</div>
+		<div>
+			<div ng-show="goal.description">
+				<h3>Description</h3>
+				<p>{{ goal.description }}</p>
+			</div>
+			<h3>Goals Timeline</h3>
+			<div class="nav-timeline">
+				<div class="dates clearfix">
+					<div class="begin-date">
+						<h5><strong>Begin</strong></h5>
+						<span>{{ timeDetails.timelineBegin ? timeDetails.timelineBegin : "None" | date:'MM/dd/yyyy'}}</span>
+					</div>
+					<div class="end-date">
+						<h5><strong>End</strong></h5>
+						<span>{{ timeDetails.timelineEnd ? timeDetails.timelineEnd : "None" | date:'MM/dd/yyyy'}}</span>
+					</div>
+				</div>
+				<div class="date-ticks-wrapper clearfix" ng-hide="timeDetails.timelineDuration > 260">
+					<a href ng-repeat="i in dateTimeline.beforeRange" class="out-of-range date-tick" style="width: {{ dateTimeline.tick }}%;" tooltip="{{ i | date:'EEE MM/dd/yyyy' }}"  tooltip-trigger="mouseenter" tooltip-placement="top" ng-click="goalActions.create(project._id, goal._id, i, timeline.getFutureDate(i, 1))">&nbsp;</a>
+					<a href ng-repeat="i in dateTimeline.inRange" class="date-tick" style="width: {{ dateTimeline.tick }}%;" tooltip="{{ i | date:'EEE MM/dd/yyyy' }}" tooltip-trigger="mouseenter" tooltip-placement="top" ng-click="goalActions.create(project._id, goal._id, i, timeline.getFutureDate(i, 1))">&nbsp;</a>
+					<a href ng-repeat="i in dateTimeline.afterRange" class="out-of-range date-tick" style="width: {{ dateTimeline.tick }}%;" tooltip="{{ i | date:'EEE MM/dd/yyyy' }}" tooltip-trigger="mouseenter" tooltip-placement="top" ng-click="goalActions.create(project._id, goal._id, i, timeline.getFutureDate(i, 1))">&nbsp;</a>
+				</div>
+			</div>
+			<div ng-if="subgoals.length > 0">
+				<goal-list></goal-list>
+			</div>
+			<div ng-if="subgoals.length <= 0" class="text-center empty-notice">
+				You don't have any goals here yet. Do you want to <a ng-click="goalActions.create(project._id, goal._id, goal.beginDate, goal.endDate)" href class="inverted">add one?</a>
+			</div>
+			<h3>Milestones Timeline</h3>
+			<div class="nav-timeline">
+				<div class="dates clearfix">
+					<div class="begin-date">
+						<h5><strong>Begin</strong></h5>
+						<span>{{ timeDetails.timelineBegin ? timeDetails.timelineBegin : "None" | date:'MM/dd/yyyy'}}</span>
+					</div>
+					<div class="end-date">
+						<h5><strong>End</strong></h5>
+						<span>{{ timeDetails.timelineEnd ? timeDetails.timelineEnd : "None" | date:'MM/dd/yyyy'}}</span>
+					</div>
+				</div>
+				<div class="date-ticks-wrapper clearfix" ng-hide="timeDetails.timelineDuration > 260">
+					<a href ng-repeat="i in dateTimeline.beforeRange" class="out-of-range date-tick" style="width: {{ dateTimeline.tick }}%;" tooltip="{{ i | date:'EEE MM/dd/yyyy' }}"  tooltip-trigger="mouseenter" tooltip-placement="top" ng-click="goalActions.create(project._id, goal._id, i, timeline.getFutureDate(i, 1))">&nbsp;</a>
+					<a href ng-repeat="i in dateTimeline.inRange" class="date-tick" style="width: {{ dateTimeline.tick }}%;" tooltip="{{ i | date:'EEE MM/dd/yyyy' }}" tooltip-trigger="mouseenter" tooltip-placement="top" ng-click="goalActions.create(project._id, goal._id, i, timeline.getFutureDate(i, 1))">&nbsp;</a>
+					<a href ng-repeat="i in dateTimeline.afterRange" class="out-of-range date-tick" style="width: {{ dateTimeline.tick }}%;" tooltip="{{ i | date:'EEE MM/dd/yyyy' }}" tooltip-trigger="mouseenter" tooltip-placement="top" ng-click="goalActions.create(project._id, goal._id, i, timeline.getFutureDate(i, 1))">&nbsp;</a>
+				</div>
+			</div>
+			<div ng-if="milestones.length > 0">
+				<milestone-list></milestone-list>
+			</div>
+			<div ng-if="milestones.length <= 0" class="text-center empty-notice">
+				You don't have any milestones here yet. Do you want to <a ng-click="milestoneActions.create(project._id, goal._id)" href class="inverted">add one?</a>
+			</div>
+			<h3>Notes</h3>
+			<div ng-if="notes.length > 0">
+				<note-list></note-list>
+			</div>
+			<div ng-if="notes.length <= 0" class="text-center empty-notice">
+				You don't have any notes here yet. Do you want to <a ng-click="noteActions.create(project._id, goal._id)" href class="inverted">add one?</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div ng-hide="loadComplete" class="goal-page">
+	<div class="text-center loading">
+		<img src="img/ajax-loader.gif" />
+	</div>
+</div>

@@ -1,0 +1,111 @@
+/* common.scss */
+
+$default-font-color: #494848;
+$bright-app-color-text: #8DF060;
+
+$primary-app-color: #0caf24;
+$secondary-app-color: #046312;
+
+$brightest-brand: #07BF22;
+$bright-brand: #64F025;
+
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+.navbar-inverse {
+	background: #111111;
+}
+
+.btn {
+	border-radius: 0;
+}
+
+.btn-primary {
+	@include button-variant(white, $primary-app-color, darken($primary-app-color, 4));
+}
+
+a {
+	color: $secondary-app-color;
+
+	&:hover,
+	&:active,
+	&:focus {
+		color: $primary-app-color;
+		text-decoration: none;
+	}
+}
+
+a.inverted {
+	color: $primary-app-color;
+
+	&:hover,
+	&:active,
+	&:focus {
+		color: $secondary-app-color;
+		text-decoration: none;
+	}
+}
+
+.no-padding {
+	padding: 0 !important;
+}
+
+body {
+	background: #f2f2f2;
+}
+
+.main-container {
+	background: #ffffff;
+	border-left: 1px solid #cccccc;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+	min-height: 400px;
+}
+
+.main-container .container {
+	padding-bottom: 20px;
+}
+
+.loading {
+	margin-top: 75px;
+	margin-bottom: 75px;
+}
+
+.brand-logo {
+	margin-top: 5px;
+	width: 40px;
+	float: left;
+	margin-right: 10px;
+}
+
+.page-header {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background: #222;
+	color: $brightest-brand;
+	padding-left: 15px;
+	padding-top: 20px;
+	border-bottom: 1px solid #111111;
+
+	h3 {
+		margin-top: 0;
+	}
+}
+
+.actions-holder {
+	padding: 15px 0;
+}
+
+footer {
+	margin: 10px auto;
+	width: 960px;
+	text-align: center;
+	font-size: 12px;
+	color: #999;
+}
+
+.content h3 {
+	font-size: 20px;
+}

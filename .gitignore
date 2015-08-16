@@ -1,0 +1,6 @@
+.sass-cache/
+node_modules/
+db/
+public/dist/
+public/tmp/
+npm-debug.log

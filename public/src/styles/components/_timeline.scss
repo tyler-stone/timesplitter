@@ -1,0 +1,280 @@
+// components/_timeline.scss
+$bar-height: 40px;
+
+.nav-timeline {
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	margin-bottom: 5px;
+	color: #666;
+
+	h5 {
+		margin: 0;
+	}
+
+	.dates {
+		padding: 5px;
+		padding-bottom: 2px;
+	}
+
+	.begin-date {
+		float: left;
+	}
+
+	.end-date {
+		float: right;
+		text-align: right;
+	}
+
+	a.date-tick {
+		width: 25%;
+		display: inline-block;
+		border-right: 1px solid #64F025;
+		float: left;
+		background: darken(#E6FFDB, 10%); //#C8F0B6;
+		box-sizing: border-box;
+
+		&.last {
+			border: 0;
+		}
+
+		&:hover {
+			background: darken(#E6FFDB, 25%);
+		}
+
+		&.out-of-range {
+			background: #f0f0f0;
+			border-right: 1px solid #bbbbbb;
+
+			&:hover {
+				background: darken(#f0f0f0, 7%);
+			}
+		}
+
+		&:last-child {
+			border: 0;
+		}
+	}
+}
+
+.timeline-item {
+	&.milestone {
+		margin-bottom: 5px;
+	}
+
+	.titem-header {
+		position: relative;
+		border-left: 1px solid #dddddd;
+		border-right: 1px solid #dddddd;
+		border-bottom: 1px solid #dddddd;
+		border-top: 1px solid #dddddd;
+	}
+
+	.titem-header.first { 
+		border-top: 1px solid #dddddd;
+	}
+
+	.titem-timeline-holder {
+		height: $bar-height;
+		width: 100%;
+		background: #eeeeee;
+	}
+
+	.titem-pushbar {
+		width: 50%;
+		height: 100%;
+		float: left;
+		display: inline-block;
+	}
+
+	.titem-bar {
+		width: 20%;
+		height: 100%;
+		float: left;
+		display: inline-block;
+	}
+
+	.titem-header-data {
+		display: inline-block;
+		top: 0px;
+		padding-left: 15px;
+		padding-right: 15px;
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		font-size: 16px;
+		color: $default-font-color;
+		position: absolute;
+	}
+
+	.titem-header-ctrls {
+		display: inline-block;
+		line-height: $bar-height;
+		font-size: 14px;
+		
+		.titem-header-date {
+			padding: 0 10px 0 15px;
+		}
+
+		.fa {
+			padding-left: 4px;
+			padding-right: 10px;
+		}
+	}
+
+	.titem-header-tag {
+		line-height: 40px;
+		padding-left: 15px;
+		font-size: 12px;
+	}
+
+	.titem-header-actions {
+		padding: 0;
+
+		a {
+			color: inherit;
+			font-size: 16px;
+			padding: 12px !important;
+			cursor: pointer;
+		}
+
+		a:hover {
+			text-decoration: none;
+			background: rgba(150,150,150,0.2);
+		}
+	}
+
+	.titem-title {
+		font-size: inherit;
+		line-height: $bar-height;
+		font-weight: bold;
+		margin: 0;
+		float: left;
+	}
+
+	.titem-body {
+		border-left: 1px solid #dddddd;
+		border-bottom: 1px solid #dddddd;
+		border-right: 1px solid #dddddd;
+	}
+
+	.titem-body-header {
+		padding: 10px 15px;
+		font-size: 12px;
+		background: #f8f8f8;
+
+		.fa {
+			margin-right: 10px;
+			margin-left: 4px;
+		}
+
+		.tag {
+			margin-right: 4px;
+		}
+	}
+
+	.titem-body-content {
+		padding: 15px;
+
+		.nav {
+			margin-bottom: 0;
+		}
+
+		li a {
+			color: #494848;
+			padding: 8px 8px;
+		}
+	}
+
+	.tag {
+		margin-right: 4px;
+		margin-left: 0;
+	}
+
+	.tab-content {
+		border-left: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.tab-content-header {
+		padding: 10px;
+		display: inline-block;
+	}
+
+	.tab-content-body {
+		padding: 5px;
+		background: #eeeeee;
+		height: 300px;
+		overflow-y: auto;
+		border-top: 1px solid #cccccc;
+	}
+
+	.panel-heading {
+		color: inherit;
+		background: inherit;
+		border: 0;
+		border-radius: 0;
+		padding: 0;
+	}
+
+	&.panel {
+		margin: 0;
+		padding: 0;
+		border-radius: 0;
+		border: 0;
+	}
+
+	.panel-body {
+		padding: 0;
+		border: 0 !important;
+	}
+
+	.sub {
+		float: left;
+		display: inline-block;
+		margin: 5px;
+		background: #fff;
+		color: $default-font-color;
+		height: 85px;
+		border: 1px solid #ccc;
+
+		&.col-md-3 {
+			padding-left: 0;
+		}
+
+		&:hover {
+			background: #f9f9f9;
+			color: $default-font-color;
+		}
+
+		.sub-category {
+			display: inline-block;
+			width: 10px;
+			height: 100%;
+			float: left;
+		}
+
+		.sub-content {
+			margin-left: 10px;
+			display: inline-block;
+			height: 100%;
+			font-size: 12px;
+		}
+	}
+
+	.subnote {
+		margin: 5px;
+		padding: 10px;
+		background: #fff;
+		border: 1px solid #ccc;
+
+		h4 {
+			margin: 0;
+		}
+
+		p {
+			margin: 0;
+			word-break: break-word;
+		}
+	}
+}

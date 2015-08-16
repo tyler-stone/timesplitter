@@ -1,0 +1,79 @@
+/* goal-item.scss */
+
+.goal-page {
+	.breadcrumb {
+		border-radius: 0;
+	}
+
+	.goal-page-header {
+		padding-bottom: 20px;
+
+		.percentComplete {
+			font-size: 22px;
+			color: $brightest-brand;
+		}
+
+		.goal-percent {
+			border-right: 1px solid #666666;
+		}
+
+		.col-md-12 {
+			margin-bottom: 20px;
+		}
+
+		.breadcrumb {
+			background: #cccccc;
+			border-top: 1px solid #bababa;
+			border-bottom: 1px solid #bababa;
+			margin-bottom: 0;
+
+			a {
+				color: #032E09;
+
+				&:hover {
+					color: #047114;
+				}
+			}
+
+			&>li+li:before {
+				color: #666666;
+			}
+
+			&>.active {
+				color: #333333;
+			}
+		}
+	}
+
+	.btn-group {
+		margin-bottom: 10px;
+	}
+
+	.nav-tabs {
+		margin-bottom: 15px;
+	}
+
+	.empty-notice {
+		margin-top: 50px;
+		margin-bottom: 75px;
+	}
+
+	.details-panel {
+		margin: 0;
+		border-radius: 0;
+		border-color: #333333;
+		border-left: 0;
+		border-right: 0;
+		color: #bbbbbb;
+		background: #444444;
+
+		span {
+			color: #eeeeee;
+		}
+
+		&>div {
+			padding-left: 15px;
+			padding-right:15px;
+		}
+	}
+}

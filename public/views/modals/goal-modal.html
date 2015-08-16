@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-if="method == 'create'">Create Goal</h3>
+    <h3 class="modal-title" ng-if="method == 'update'">Update Goal</h3>
+</div>
+<div class="modal-body">
+    <form name="goalform">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" required ng-model="goal.name" class="form-control" maxlength="60">
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea ng-model="goal.description" class="form-control"></textarea>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Begin Date</label>
+                <input type="date" class="form-control" ng-model="goal.beginDate" ui-validate="{ invalidDate: 'invalidDate($value, goal.endDate)' }" ui-validate-watch="'goal.endDate'"/>
+            </div>
+            <div class="form-group col-md-6">
+                <label>End Date</label>
+                <input type="date" class="form-control" ng-model="goal.endDate" ui-validate="{ invalidDate: 'invalidDate(goal.beginDate, $value)' }" ui-validate-watch="'goal.beginDate'"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default" ng-click="resetDates()">Reset Dates</button>
+        </div>
+        <div class="form-group">
+            <label>Percent Complete</label>
+            <div class="input-group col-xs-3">
+                <input type="number" ng-model="goal.percentComplete" class="form-control" min="0" max="100"><div class="input-group-addon">%</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Categories</label>
+            <select class="form-control" ng-model="goal.categoryId" ng-options="category._id as category.name for category in categories">
+                <option value="">No Category</option>
+            </select>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button ng-if="method == 'update'" class="btn btn-danger" ng-click="delete()">Delete</button>
+    <button ng-if="method == 'create'" ng-disabled="goalform.$invalid" class="btn btn-primary" ng-click="ok()">Create</button>
+    <button ng-if="method == 'update'" ng-disabled="goalform.$invalid || goalform.$pristine" class="btn btn-primary" ng-click="ok()">Update</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,78 @@
+<accordion>
+	<accordion-group ng-repeat="g in timelineSubgoals | orderBy: 'goal.beginDate'"class="timeline-item">
+		<accordion-heading>
+			<div class="titem-header" ng-class="{'first':$first}">
+				<div class="titem-timeline-holder">
+					<div class="titem-pushbar" style="width: {{ g.timeline.push }}%;" ng-hide="g.timeline.push <= 0"></div>
+					<div class="titem-bar {{ g.category.color ? g.category.color : 'cat-default'}}"  style="width: {{ g.timeline.size }}%;"></div>
+				</div>
+				<div class="titem-header-data">
+					<h3 class="titem-title">{{ g.goal.name }}</h3>
+					<div class="titem-header-ctrls pull-right">
+						<span class="titem-header-date" ng-show="g.goal.beginDate && g.goal.endDate"><strong>{{ g.goal.beginDate | date:'MM/dd/yyyy'}}</strong> to <strong>{{ g.goal.endDate | date:'MM/dd/yyyy'}}</strong></span>
+						<span class="titem-header-date" ng-show="g.goal.beginDate && !(g.goal.endDate)">Begin: <strong>{{ g.goal.beginDate | date:'MM/dd/yyyy'}}</strong></span>
+						<span class="titem-header-date" ng-show="g.goal.endDate && !(g.goal.beginDate)">End: <strong>{{ g.goal.endDate | date:'MM/dd/yyyy'}}</strong></span>
+						<span class="titem-header-actions"><a class="fa fa-edit" ng-click="barEdit(g.goal, $event)"></a><a class="fa fa-external-link" ng-click="barGoTo('/project/' + project._id + '/goal/' + g.goal._id, $event)"></a></span>
+					</div>
+				</div>
+			</div>
+		</accordion-heading>
+		<div class="titem-body">
+			<div class="clearfix">
+				<div class="col-md-4 titem-body-header">
+					<span class="fa fa-tag tag"></span>{{ g.category.name ? g.category.name : "None"}}</span>
+				</div>
+				<div class="col-md-4 titem-body-header text-center">
+					<strong>{{ g.goal.percentComplete }}%</strong> Complete
+				</div>
+				<div class="col-md-4 titem-body-header text-right">
+					{{ g.stats.numSubgoals }}<span class="fa fa-copy"></span>
+					{{ g.stats.numNotes }}<span class="fa fa-comments"></span>
+					{{ g.stats.numMilestones }}<span class="fa fa-flag"></span>
+				</div>
+			</div>
+			<div class="titem-body-content">
+				<tabset>
+					<tab>
+						<tab-heading><span class="fa fa-copy"></span> Subgoals</tab-heading>
+						<div class="text-right tab-content-header"><a href ng-click="goalActions.create(g.goal.projectId, g.goal._id)"><span class="fa fa-plus"></span> Add New</a></div>
+						<div class="tab-content-body">
+							<a class="sub col-md-3" ng-repeat="subg in g.subgoals | orderBy: 'beginDate'" href="/project/{{ subg.projectId }}/goal/{{ subg._id }}">
+								<div class="sub-category" ng-class="getCategoryColor(subg.categoryId)">&nbsp;</div>
+								<div class="sub-content">
+									<h4>{{ subg.name | ellipsis: 20 }}</h4>
+									<span class="fa fa-tag tag"></span><span ng-bind="getCategoryName(subg.categoryId)"></span>
+									<div class="sub-date"><span ng-show="subg.beginDate && subg.endDate"><strong>{{ subg.beginDate | date: 'MM/dd/yyyy' }}</strong> to <strong>{{ subg.endDate | date: 'MM/dd/yyyy' }}</strong> • {{ timeline.getNumDays(subg.beginDate, subg.endDate) }} days</span><span ng-show="subg.beginDate && !(subg.endDate)"><strong>Begin: </strong>{{ subg.beginDate | date: 'MM/dd/yyyy' }}</span><span ng-show="!(subg.beginDate) && subg.endDate"><strong>End: </strong>{{ subg.endDate | date: 'MM/dd/yyyy' }}</span></div> 
+								</div>
+							</a>
+						</div>
+					</tab>
+					<tab>
+						<tab-heading><span class="fa fa-comments"></span> Notes</tab-heading>
+						<div class="text-right tab-content-header"><a href ng-click="noteActions.create(g.goal.projectId, g.goal._id)"><span class="fa fa-plus"></span> Add New</a></div>
+						<div class="tab-content-body">
+							<div class="subnote" ng-repeat="note in g.notes">
+								<h4>{{ note.name }}</h4>
+								<p>{{ note.description }}</p>
+							</div>
+						</div>
+					</tab>
+					<tab>
+						<tab-heading><span class="fa fa-flag"></span> Milestones</tab-heading>
+						<div class="text-right tab-content-header"><a href ng-click="milestoneActions.create(g.goal.projectId, g.goal._id)"><span class="fa fa-plus"></span> Add New</a></div>
+						<div class="tab-content-body">
+							<div class="sub col-md-3" ng-repeat="subm in g.milestones | orderBy: 'date'">
+								<div class="sub-category" ng-class="getCategoryColor(subm.categoryId)">&nbsp;</div>
+								<div class="sub-content">
+									<h4>{{ subm.name | ellipsis: 20 }}</h4>
+									<span class="fa fa-tag tag"></span><span ng-bind="getCategoryName(subm.categoryId)"></span>
+									<div class="sub-date"><span ng-show="subm.date"><strong>{{ subm.date | date: 'MM/dd/yyyy' }}</strong> • <strong>{{ subm.percentComplete }}%</strong> Complete</span>
+								</div>
+							</div>
+						</div>
+					</tab>
+				</tabset>
+			</div>
+		</div>
+	</accordion-group>
+</accordion>
