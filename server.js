@@ -6,6 +6,7 @@ var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
 var mongoose	   = require('mongoose');
+var jwt			   = require('jsonwebtoken');
 
 // configuration ===========================================
     
@@ -13,11 +14,14 @@ var mongoose	   = require('mongoose');
 var db = require('./config/db');
 
 // set our port
-var port = process.env.PORT || 8080; 
+var port = process.env.PORT || 3000; 
 
 // connect to our mongoDB database 
 // (uncomment after you enter in your own credentials in config/db.js)
-mongoose.connect(db.prod); 
+mongoose.connect(db.dev); 
+
+// set the secret
+app.set('secret', 'ew9*mwu2&&-%k=s*$86u1g&u3i!^mhl_zu8v*472-(09g$f-f*7%fwe');
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json 
@@ -36,13 +40,15 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public')); 
 
 // routes ==================================================
-require('./app/routes/project')(app);
-require('./app/routes/goal')(app);
-require('./app/routes/milestone')(app);
-require('./app/routes/note')(app);
-require('./app/routes/category')(app);
-require('./app/routes/pages')(app);
-
+// require('./app/routes/project')(app);
+// require('./app/routes/goal')(app);
+// require('./app/routes/milestone')(app);
+// require('./app/routes/note')(app);
+// require('./app/routes/category')(app);
+// require('./app/routes/pages')(app);
+require('./app/routes/auth')(app);
+require('./app/routes/apiMiddleWare')(app);
+require('./app/routes/user')(app);
 require('./app/routes/frontend')(app);
 
 // start app ===============================================

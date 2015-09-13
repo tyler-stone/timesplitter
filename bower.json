@@ -1,6 +1,6 @@
 {
-  "name": "goalpro",
-  "version": "0.6.0",
+  "name": "timesplitter",
+  "version": "0.0.1",
   "dependencies": {
     "bootstrap": "latest",
     "font-awesome": "latest",
