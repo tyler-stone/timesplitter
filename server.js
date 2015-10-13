@@ -18,7 +18,7 @@ var port = process.env.PORT || 3000;
 
 // connect to our mongoDB database 
 // (uncomment after you enter in your own credentials in config/db.js)
-mongoose.connect(db.dev); 
+mongoose.connect(db.prod); 
 
 // set the secret
 app.set('secret', 'ew9*mwu2&&-%k=s*$86u1g&u3i!^mhl_zu8v*472-(09g$f-f*7%fwe');
@@ -40,16 +40,12 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public')); 
 
 // routes ==================================================
-// require('./app/routes/project')(app);
-// require('./app/routes/goal')(app);
-// require('./app/routes/milestone')(app);
-// require('./app/routes/note')(app);
-// require('./app/routes/category')(app);
-// require('./app/routes/pages')(app);
 require('./app/routes/auth')(app);
 require('./app/routes/apiMiddleWare')(app);
 require('./app/routes/user')(app);
 require('./app/routes/frontend')(app);
+require('./app/routes/category')(app);
+require('./app/routes/timeentry')(app);
 
 // start app ===============================================
 // startup our app at http://localhost:8080
