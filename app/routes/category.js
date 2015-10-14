@@ -5,21 +5,29 @@ var Category = require('../models/category');
 module.exports = function(app) {
     //get all categories
     app.get('/api/categories', function(req, res) {
-        Category.find(function(err, categories) {
+        Category.find({
+	    userId: req.decoded._id
+	}, function(err, categories) {
             if (err) res.send(err); else res.json(categories);
         });
     });
 
     // get a single category
-    app.get('/api/categories/:category_id', function(req, res) {
-        Category.findById(req.params.category_id, function(err, category) {
+    app.get('/api/categories/:category_id', function(req, res) {    
+	Category.find({
+	    _id: req.params.category_id,
+	    userId: req.decoded._id
+	}, function(err, category) {
             if (err) res.send(err); else res.json(category);
         });
     });
 
     // update a single category
     app.put('/api/categories/:category_id', function(req, res) {
-        Category.findById(req.params.category_id, function(err, category) {
+        Category.find({
+	    _id: req.params.category_id,
+	    userId: req.decoded._id
+	},  function(err, category) {
             if (err) {
                 res.send(err);
             } else {
@@ -27,7 +35,7 @@ module.exports = function(app) {
                 category.color = req.body.color;
 
                 category.save(function(err, category) {
-                    if (err) res.send(err); else res.json({ success: category});
+                    if (err) res.send(err); else res.json({ success: category });
                 });
             }
         });
@@ -45,7 +53,8 @@ module.exports = function(app) {
     // delete a category
     app.delete('/api/categories/:category_id', function(req, res) {
         Category.remove({
-            _id: req.params.category_id
+            _id: req.params.category_id,
+	    userId: req.decoded._id
         }, function(err, category) {
             if (err) res.send(err); else res.json({ success: 'Category Deleted' });
         })
