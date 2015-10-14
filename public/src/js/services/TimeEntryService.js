@@ -1,4 +1,4 @@
-ngular.module('time').factory('TimeEntryService', ['$http', function($http) {
+angular.module('time').factory('timeentries', ['$http', function($http) {
     return {
         get : function() {
             return $http.get('/api/timeentries');

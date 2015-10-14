@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <base href="/">
 
-    <title>Fractal Planner</title>
+    <title>Time Tracker</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
@@ -14,8 +14,8 @@
     
     <!-- JS -->
     <script src="libs/angular/angular.min.js"></script>
-    <script src="libs/angular-route/angular-route.min.js"></script>
     <script src="libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="libs/angular-ui-utils/ui-utils.min.js"></script>
     <script src="libs/jquery/dist/jquery.min.js"></script>
     <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -23,20 +23,19 @@
     <!-- ANGULAR CUSTOM -->
     <script src="dist/js/app.min.js"></script>
 </head>
-<body ng-app="goals" ng-controller="MainController">
+<body ng-app="time">
 <div class="navbar navbar-inverse">
     <div class="container no-padding">
         <div class="navbar-header">
-            <img src="img/fractal-icon.png" class="brand-logo"/>
-            <a class="navbar-brand" href="/projects">fractal</a>
+            <a class="navbar-brand" href="/app">Time Tracker</a>
         </div>
     </div>
 </div>
 <div class="container main-container no-padding">
-    <div ng-view></div>
+    <div ui-view="content"></div>
 </div>
 <footer>
-    Copyright &copy; 2015 Tyler Stone<br />v0.7.0-alpha
+    Copyright &copy; 2015 Tyler Stone<br />
 </footer>
 </body>
 </html>

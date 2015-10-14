@@ -1,4 +1,4 @@
-ngular.module('time').factory('UserService', ['$http', function($http) {
+angular.module('time').factory('users', ['$http', function($http) {
     return {
         get : function() {
             return $http.get('/api/users');

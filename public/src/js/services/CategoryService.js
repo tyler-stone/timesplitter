@@ -1,4 +1,4 @@
-ngular.module('time').factory('CategoryService', ['$http', function($http) {
+angular.module('time').factory('categories', ['$http', function($http) {
     return {
         get : function() {
             return $http.get('/api/categories');
