@@ -11,8 +11,8 @@ module.exports = function(app) {
     //get all timeentries
     app.get('/api/timeentries', function(req, res) {
         TimeEntry.find({
-	    userId: req.decoded._id 
-	}, function(err, timeentries) {
+    	    userId: req.decoded._id 
+    	}, function(err, timeentries) {
             if (err) res.send(err); else res.json(timeentries);
         });
     });
@@ -20,9 +20,9 @@ module.exports = function(app) {
     // get a single timeentry
     app.get('/api/timeentries/:timeentry_id', function(req, res) {
         TimeEntry.find({
-	    _id: req.params.timeentry_id,
-	    userId: req.decoded._id
-	},  function(err, timeentry) {
+    	    _id: req.params.timeentry_id,
+    	    userId: req.decoded._id
+    	},  function(err, timeentry) {
             if (err) res.send(err); else res.json(timeentry);
         });
     });
@@ -30,15 +30,16 @@ module.exports = function(app) {
     // update a single timeentry
     app.put('/api/timeentries/:timeentry_id', function(req, res) {
         TimeEntry.find({
-	    _id: req.params.timeentry_id, 
-	    userId: req.decoded._id
-	}, function(err, timeentry) {
+    	    _id: req.params.timeentry_id, 
+    	    userId: req.decoded._id
+    	}, function(err, timeentry) {
             if (err) {
                 res.send(err);
             } else {
                 timeentry.name = req.body.name;
                 timeentry.hours = req.body.hours;
                 timeentry.categoryId = req.body.categoryId;
+                timeentry.userId = req.decoded._id;
 
                 timeentry.save(function(err, timeentry) {
                     if (err) res.send(err); else res.json({ success: timeentry });
@@ -50,6 +51,7 @@ module.exports = function(app) {
     // create a timeentry
     app.post('/api/timeentries', function(req, res) {
         var timeentry = new TimeEntry(req.body);
+        timeentry.userId = req.decoded._id;
 
         timeentry.save(function(err, timeentry) {
             if (err) res.send(err); else res.json({success: timeentry });
@@ -60,7 +62,7 @@ module.exports = function(app) {
     app.delete('/api/timeentries/:timeentry_id', function(req, res) {
         TimeEntry.remove({
             _id: req.params.timeentry_id,
-	    userId: req.decoded._id
+	       userId: req.decoded._id
         }, function(err, timeentry) {
             if (err) res.send(err); else res.json({ success: 'TimeEntry Deleted' });
         });

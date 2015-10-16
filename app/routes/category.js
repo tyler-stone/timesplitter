@@ -33,6 +33,7 @@ module.exports = function(app) {
             } else {
                 category.name = req.body.name;
                 category.color = req.body.color;
+                category.userId = req.decoded._id;
 
                 category.save(function(err, category) {
                     if (err) res.send(err); else res.json({ success: category });
@@ -44,6 +45,7 @@ module.exports = function(app) {
     // create a category
     app.post('/api/categories', function(req, res) {
         var category = new Category(req.body);
+        category.userId = req.decoded._id;
 
         category.save(function(err, category) {
             if (err) res.send(err); else res.json({ success: category});

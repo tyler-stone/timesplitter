@@ -13,7 +13,7 @@ module.exports = function(app) {
 		User.findOne({
 			email: req.body.email
 		}, function(err, user) {
-			if (err) throw err;
+			if (err) res.send(err);
 			console.log(req.body);
 			if (!user) {
 				res.json({ success: false, message: "Authentication failed. User not found."});
@@ -26,7 +26,8 @@ module.exports = function(app) {
 			    	
 			    	res.json({
 			    		success: true,
-			    		token: token
+			    		token: token,
+			    		user: user
 			    	});
 			    } else {
 			    	res.json({ success: false, message: 'Authentication failed. Wrong password.' });
