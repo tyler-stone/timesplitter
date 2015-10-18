@@ -31,6 +31,16 @@ angular.module('time').config(function($stateProvider, $urlRouterProvider) {
                     controller: 'AppController'
                 }
             }
+        })
+
+        .state('categories', {
+            url: '/app/categories',
+            views: {
+                'content@': {
+                    templateUrl: 'views/categories.html',
+                    controller: 'CategoryController'
+                }
+            }
         });
 
     $urlRouterProvider.otherwise('/');

@@ -22,11 +22,15 @@ angular.module('time', ['ui.bootstrap', 'ui.validate', 'ui.router']).run(functio
 				$state.go(toState, toParams);
 			}
 		} else {
-			if ($state.current.name === 'login' || $state.current.name === 'account_create') {
-				bypassAuthCheck = false;
-			} else {
-				if ($rootScope.toState === 'account_create') {
+			if ($rootScope.toState.name === 'account_create') {
+				if ($state.current.name === 'account_create') {
+					bypassAuthCheck = false;
+				} else {
 					$state.go('account_create');
+				}
+			} else {
+				if ($state.current.name === 'login') {
+					bypassAuthCheck = false;
 				} else {
 					$state.go('login');
 				}

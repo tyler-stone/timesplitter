@@ -43,9 +43,9 @@ app.use(express.static(__dirname + '/public'));
 require('./app/routes/auth')(app);
 require('./app/routes/apiMiddleWare')(app);
 require('./app/routes/user')(app);
-require('./app/routes/frontend')(app);
 require('./app/routes/category')(app);
 require('./app/routes/timeentry')(app);
+require('./app/routes/frontend')(app);
 
 // start app ===============================================
 // startup our app at http://localhost:8080

@@ -1,0 +1,19 @@
+.row-item {
+	margin: 15px 0;
+	box-shadow: 0px 0px 2px 0px #999;
+
+	h4 {
+		display: inline-block;
+	}
+
+	.color-bar {
+		display: inline-block;
+		width: 10px;
+		padding: 10px 5px;
+		margin-right: 10px;
+	}
+
+	.badge {
+		margin: 0 6px;
+	}
+}

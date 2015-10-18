@@ -1,3 +1,43 @@
 <div class="container">
-	<h1>Home</h1>
+	<h1>Time Entries for {{ day.toDateString() }}</h1>
+	<br>
+	<div class="clearfix">
+		<div class="col-md-4">
+	      <datepicker ng-model="day" show-weeks="true"></datepicker>
+	    </div>
+	    <div class="col-md-4">
+	    </div>
+	    <div class="col-md-4">
+	    </div>
+	</div>
+
+    <div class="clearfix">
+    	<h4>Add a new time entry:</h4>
+    	<form class="form-inline col-md-10">
+    		<div class="form-group">
+	    		<label for="name">name</label>
+				<input name="name" maxlength="40" type="text" class="form-control" ng-model="newEntry.name" />
+			</div>
+			<div class="form-group">
+				<label for="hours"># hours</label>
+				<input name="hours" type="number" step="any" min="0" class="form-control" ng-model="newEntry.hours" />
+			</div>
+			<div class="form-group">
+				<label for="category">category</label>
+				<select class="form-control" ng-model="newEntry.category" ng-options="category._id as category.name for category in categories">
+					<option value="">None</option>
+				</select>
+			</div>
+			<button class="btn btn-primary" ng-click="doCreateEntry()">create entry</button>
+		</form>
+		<div class="col-md-2 text-right">
+			<button class="btn btn-primary" ui-sref="categories">categories</button>
+		</div>
+	</div>
+
+	<div>
+		<div class="row-item clearfix" ng-repeat="entry in timeEntries">
+			<h4 class="col-md-6">{{ entry.name }}<span ng-show="entry.category" style="background-color: {{ entry.category.color }};" class="badge">{{ entry.category.name }}</span></h4><h4 class="text-right col-md-6">{{ entry.hours }} hours</h4>
+		</div>
+	</div>
 </div>

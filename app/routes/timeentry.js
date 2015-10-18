@@ -12,7 +12,7 @@ module.exports = function(app) {
     app.get('/api/timeentries', function(req, res) {
         TimeEntry.find({
     	    userId: req.decoded._id 
-    	}, function(err, timeentries) {
+    	}).populate('category').exec(function(err, timeentries) {
             if (err) res.send(err); else res.json(timeentries);
         });
     });
@@ -22,7 +22,7 @@ module.exports = function(app) {
         TimeEntry.find({
     	    _id: req.params.timeentry_id,
     	    userId: req.decoded._id
-    	},  function(err, timeentry) {
+    	}).populate('category').exec(function(err, timeentry) {
             if (err) res.send(err); else res.json(timeentry);
         });
     });
@@ -38,7 +38,7 @@ module.exports = function(app) {
             } else {
                 timeentry.name = req.body.name;
                 timeentry.hours = req.body.hours;
-                timeentry.categoryId = req.body.categoryId;
+                timeentry.category = req.body.category;
                 timeentry.userId = req.decoded._id;
 
                 timeentry.save(function(err, timeentry) {

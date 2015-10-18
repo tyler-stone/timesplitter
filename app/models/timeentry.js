@@ -5,6 +5,6 @@ module.exports = mongoose.model('TimeEntry', {
     name : { type : String, required : true },
     date : Date,
     hours : Number,
-    categoryId : { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
+    category : { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
     userId : { type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
