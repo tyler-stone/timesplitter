@@ -1,16 +1,13 @@
 <div class="container">
-	<h1>Time Entries for {{ day.toDateString() }}</h1>
-	<br>
 	<div class="clearfix">
 		<div class="col-md-4">
-	      <datepicker ng-model="day" show-weeks="true"></datepicker>
 	    </div>
 	    <div class="col-md-4">
-	    </div>
-	    <div class="col-md-4">
+	    	<datepicker ng-model="day" show-weeks="true"></datepicker>
 	    </div>
 	</div>
-
+	<h3>Time Entries for {{ day.toDateString() }}</h3>
+	<div class="pie-chart" timeentries="timeEntries"></div>
     <div class="clearfix">
     	<h4>Add a new time entry:</h4>
     	<form class="form-inline col-md-10">

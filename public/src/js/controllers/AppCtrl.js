@@ -24,8 +24,18 @@ angular.module('time').controller('AppController', function($scope, $state, $log
 		}
 	};
 
+	$scope.doDeleteEntry = function(id) {
+		timeentries.delete(id).then(function(result) {
+			doRefresh();
+		});
+	};
+
+	$scope.$watch('day', function() {
+		doRefresh();
+	});
+
 	var doRefresh = function() {
-		timeentries.get().then(function(result) {
+		timeentries.getByDay($scope.day).then(function(result) {
 			console.log(result.data);
 			if (result.data) {
 				$scope.timeEntries = result.data;

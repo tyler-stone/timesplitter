@@ -10,9 +10,23 @@ var Category  = require('../models/category');
 module.exports = function(app) {
     //get all timeentries
     app.get('/api/timeentries', function(req, res) {
-        TimeEntry.find({
-    	    userId: req.decoded._id 
-    	}).populate('category').exec(function(err, timeentries) {
+        var params = {
+            userId: req.decoded._id 
+        };
+
+        if (req.query.day) {
+            var d = new Date(req.query.day);
+            var begin = new Date(d.toDateString());
+            var end = new Date(d.toDateString());
+            end.setDate(end.getDate() + 1);
+
+            params.date = {
+                "$gte" : begin,
+                "$lt" : end
+            };
+        }
+
+        TimeEntry.find(params).populate('category').exec(function(err, timeentries) {
             if (err) res.send(err); else res.json(timeentries);
         });
     });

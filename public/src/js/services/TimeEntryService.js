@@ -8,6 +8,15 @@ angular.module('time').factory('timeentries', function($http, auth) {
             });
         },
 
+        getByDay : function(day) {
+            return $http({
+                method: 'GET',
+                url: '/api/timeentries',
+                headers: auth.getHeaders(),
+                params: { 'day': day }
+            });
+        },
+
         create : function(timeEntry) {
             return $http({
                 method: 'POST',
