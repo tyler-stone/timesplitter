@@ -1,5 +1,9 @@
 angular.module('time').controller('AppController', function($scope, $state, $log, categories, timeentries) {
 	$scope.day = new Date(new Date().toDateString());
+	$scope.state = "Day";
+	$scope.dp = {
+		opened: true
+	};
 	$scope.newEntry = {};
 	$scope.timeEntries = [];
 	$scope.categories = [];
@@ -28,6 +32,11 @@ angular.module('time').controller('AppController', function($scope, $state, $log
 		timeentries.delete(id).then(function(result) {
 			doRefresh();
 		});
+	};
+
+	$scope.open = function() {
+		$scope.dp.opened = true;
+		console.log($scope.dp.opened);
 	};
 
 	$scope.$watch('day', function() {

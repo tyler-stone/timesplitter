@@ -18,35 +18,35 @@ $bright-brand: #64F025;
 	background: #111111;
 }
 
-.btn {
-	border-radius: 0;
+.navbar-brand {
+	margin-left: 0 !important;
 }
 
-.btn-primary {
-	@include button-variant(white, $primary-app-color, darken($primary-app-color, 4));
-}
+// .btn-primary {
+// 	@include button-variant(white, $primary-app-color, darken($primary-app-color, 4));
+// }
 
-a {
-	color: $secondary-app-color;
+// a {
+// 	color: $secondary-app-color;
 
-	&:hover,
-	&:active,
-	&:focus {
-		color: $primary-app-color;
-		text-decoration: none;
-	}
-}
+// 	&:hover,
+// 	&:active,
+// 	&:focus {
+// 		color: $primary-app-color;
+// 		text-decoration: none;
+// 	}
+// }
 
-a.inverted {
-	color: $primary-app-color;
+// a.inverted {
+// 	color: $primary-app-color;
 
-	&:hover,
-	&:active,
-	&:focus {
-		color: $secondary-app-color;
-		text-decoration: none;
-	}
-}
+// 	&:hover,
+// 	&:active,
+// 	&:focus {
+// 		color: $secondary-app-color;
+// 		text-decoration: none;
+// 	}
+// }
 
 .no-padding {
 	padding: 0 !important;

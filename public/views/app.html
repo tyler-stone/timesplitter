@@ -1,18 +1,35 @@
-<div class="container">
-	<div class="clearfix">
-		<div class="col-md-4">
-	    </div>
-	    <div class="col-md-4">
-	    	<datepicker ng-model="day" show-weeks="true"></datepicker>
-	    </div>
+<div class="navbar navbar-inverse">
+	<div class="container no-padding">
+		<div class="navbar-header">
+			<a class="navbar-brand" ui-sref="home">Time Tracker</a>
+		</div>
+		<div class="btn-group">
+			<label class="btn btn-default navbar-btn" ng-model="state" btn-radio="'Day'">Day</label>
+			<label class="btn btn-default navbar-btn" ng-model="state" btn-radio="'Week'">Week</label>
+		</div>
+		<span class="navbar-form">
+			<input type="date" class="form-control navbar-form" datepicker-popup ng-model="day" is-open="dp.opened" close-text="Close" />
+			<span class="btn-default">
+				<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+			</span>
+		</span>
 	</div>
+</div>
+<div class="container">
+<!-- 	<div class="clearfix">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4">
+			<datepicker ng-model="day" show-weeks="true"></datepicker>
+		</div>
+	</div> -->
 	<h3>Time Entries for {{ day.toDateString() }}</h3>
 	<div class="pie-chart" timeentries="timeEntries"></div>
-    <div class="clearfix">
-    	<h4>Add a new time entry:</h4>
-    	<form class="form-inline col-md-10">
-    		<div class="form-group">
-	    		<label for="name">name</label>
+	<div class="clearfix">
+		<h4>Add a new time entry:</h4>
+		<form class="form-inline col-md-10">
+			<div class="form-group">
+				<label for="name">name</label>
 				<input name="name" maxlength="40" type="text" class="form-control" ng-model="newEntry.name" />
 			</div>
 			<div class="form-group">
