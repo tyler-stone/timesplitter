@@ -34,12 +34,14 @@ angular.module('time').controller('AppController', function($scope, $state, $log
 		});
 	};
 
-	$scope.open = function() {
+	$scope.open = function($event) {
+		$event.preventDefault();
+        $event.stopPropagation();
 		$scope.dp.opened = true;
-		console.log($scope.dp.opened);
 	};
 
 	$scope.$watch('day', function() {
+		console.log($scope.day);
 		doRefresh();
 	});
 
