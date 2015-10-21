@@ -2,14 +2,21 @@
 
 <div class="container">
 	<h1>Log In</h1>
-	<div class="form-group">
-		<label for="email">email</label>
-		<input name="email" type="text" class="form-control" ng-model="email" />
-		<label for="password">password</label>
-		<input name="password" type="password" class="form-control" ng-model="password" />
+	<div ng-show="loadComplete">
+		<div class="form-group">
+			<label for="email">email</label>
+			<input name="email" type="text" class="form-control" ng-model="email" />
+			<label for="password">password</label>
+			<input name="password" type="password" class="form-control" ng-model="password" />
+		</div>
+		<div class="text-center">
+			<button class="btn btn-primary centered" ng-click="doLogin()">log in</button><br>
+			<p><a ui-sref="account_create">create an account</a></p>
+		</div>
 	</div>
-	<div class="text-center">
-		<button class="btn btn-primary centered" ng-click="doLogin()">log in</button><br>
-		<p><a ui-sref="account_create">create an account</a></p>
+	<div ng-hide="loadComplete">
+	    <div class="text-center loading">
+	        <img src="img/ajax-loader.gif" />
+	    </div>
 	</div>
 </div>

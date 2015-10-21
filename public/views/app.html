@@ -13,16 +13,9 @@
 		</span>
 	</div>
 </div>
-<div class="container">
-<!-- 	<div class="clearfix">
-		<div class="col-md-4">
-		</div>
-		<div class="col-md-4">
-			<datepicker ng-model="day" show-weeks="true"></datepicker>
-		</div>
-	</div> -->
-	<h3>Time Entries for {{ day.toDateString() }}</h3>
-	<div class="pie-chart" timeentries="timeEntries"></div>
+<div ng-show="loadComplete" class="container">
+	<h3>Time Entries for {{ day.toDateString() ? day.toDateString() : "All Days" }}</h3>
+	<div class="pie-chart" ng-if="timeEntries.length > 0" timeentries="timeEntries"></div>
 	<div class="clearfix">
 		<h4>Add a new time entry:</h4>
 		<form class="form-inline">
@@ -46,8 +39,16 @@
 	</div>
 
 	<div>
-		<div class="row-item clearfix" ng-repeat="entry in timeEntries">
-			<h4 class="col-md-6">{{ entry.name }}<span ng-show="entry.category" style="background-color: {{ entry.category.color }};" class="badge">{{ entry.category.name }}</span></h4><h4 class="text-right col-md-6">{{ entry.hours }} hours</h4>
+		<div id="{{ entry._id }}" class="row-item clearfix" ng-repeat="entry in timeEntries">
+			<h4 class="col-md-5">{{ entry.name }}<span ng-show="entry.category" style="background-color: {{ entry.category.color }};" class="badge">{{ entry.category.name }}</span></h4><h4 class="text-right col-md-5">{{ entry.hours }} hours</h4>
+			<div class="col-md-2 text-right">
+				<button type="button" class="btn btn-danger" ng-click="doDeleteEntry(entry._id)">delete</button>
+			</div>
 		</div>
 	</div>
+</div>
+<div ng-hide="loadComplete" class="container">
+    <div class="text-center loading">
+        <img src="img/ajax-loader.gif" />
+    </div>
 </div>

@@ -2,11 +2,12 @@ angular.module('time').controller('AppController', function($scope, $state, $log
 	$scope.day = new Date(new Date().toDateString());
 	$scope.state = "Day";
 	$scope.dp = {
-		opened: true
+		opened: false
 	};
 	$scope.newEntry = {};
 	$scope.timeEntries = [];
 	$scope.categories = [];
+	$scope.loadComplete = false;
 
 	$scope.isValidEntry = function(entry) {
 		if (entry.name === null || entry.name === undefined || 
@@ -21,8 +22,8 @@ angular.module('time').controller('AppController', function($scope, $state, $log
 	$scope.doCreateEntry = function() {
 		$scope.newEntry.date = $scope.day;
 		if ($scope.isValidEntry($scope.newEntry)) {
-			console.log($scope.newEntry);
 			timeentries.create($scope.newEntry).then(function(result) {
+				$scope.newEntry = {};
 				doRefresh();
 			});
 		}
@@ -42,12 +43,21 @@ angular.module('time').controller('AppController', function($scope, $state, $log
 
 	$scope.$watch('day', function() {
 		console.log($scope.day);
-		doRefresh();
+		doLoadingRefresh();
 	});
 
 	var doRefresh = function() {
 		timeentries.getByDay($scope.day).then(function(result) {
-			console.log(result.data);
+			if (result.data) {
+				$scope.timeEntries = result.data;
+			}
+		});
+	};
+
+	var doLoadingRefresh = function() {
+		$scope.loadComplete = false;
+		timeentries.getByDay($scope.day).then(function(result) {
+			$scope.loadComplete = true;
 			if (result.data) {
 				$scope.timeEntries = result.data;
 			}
@@ -55,6 +65,7 @@ angular.module('time').controller('AppController', function($scope, $state, $log
 	};
 
 	categories.get().then(function(result) {
+		$scope.loadComplete = true;
 		if (result.data) {
 			$scope.categories = result.data;
 		}
