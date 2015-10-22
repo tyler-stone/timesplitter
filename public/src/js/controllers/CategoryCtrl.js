@@ -21,6 +21,12 @@ angular.module('time').controller('CategoryController', function($scope, $state,
 		}
 	};
 
+	$scope.doDeleteCategory = function(id) {
+		categories.delete(id).then(function(result) {
+			doRefresh();
+		});
+	};
+
 	var doRefresh = function() {
 		categories.get().then(function(result) {
 			if (result.data) {

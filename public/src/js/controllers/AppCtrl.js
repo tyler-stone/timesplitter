@@ -42,6 +42,16 @@ angular.module('time').controller('AppController', function($scope, $state, $log
 		$scope.dp.opened = true;
 	};
 
+	$scope.countHours = function() {
+		var hours = 0;
+
+		for (var i = 0; i < $scope.timeEntries.length; i++) {
+			hours += $scope.timeEntries[i].hours; 
+		}
+
+		return hours;
+	};
+
 	$scope.$watch('day', function() {
 		console.log($scope.day);
 		$scope.range = generateRange();

@@ -23,8 +23,13 @@
 	</div>
 
 	<div>
-		<div class="row-item" ng-repeat="category in categories">
-			<div class="color-bar" style="background-color: {{ category.color}};">&nbsp;</div><h4>{{ category.name }}</h4></div>
+		<div class="row-item clearfix" ng-repeat="category in categories">
+			<div class="col-md-10 no-padding">
+				<div class="color-bar" style="background-color: {{ category.color}};">&nbsp;</div><h4>{{ category.name }}</h4>
+			</div>
+			<div class="col-md-2 text-right">
+				<button type="button" class="btn btn-danger" ng-click="doDeleteCategory(category._id)">delete</button>
+			</div>
 		</div>
 	</div>
 </div>

@@ -56,7 +56,7 @@ module.exports = function(app) {
     app.delete('/api/categories/:category_id', function(req, res) {
         Category.remove({
             _id: req.params.category_id,
-	    userId: req.decoded._id
+	       userId: req.decoded._id
         }, function(err, category) {
             if (err) res.send(err); else res.json({ success: 'Category Deleted' });
         })
