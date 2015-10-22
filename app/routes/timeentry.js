@@ -24,6 +24,11 @@ module.exports = function(app) {
                 "$gte" : begin,
                 "$lt" : end
             };
+        } else if (req.query.begin && req.query.end) {
+            params.date = {
+                "$gte" : new Date(req.query.begin),
+                "$lt" : new Date(req.query.end)
+            };
         }
 
         TimeEntry.find(params).populate('category').exec(function(err, timeentries) {

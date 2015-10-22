@@ -39,42 +39,46 @@ angular.module('time').directive('pieChart', function() {
 		controller: function ($scope, $element, $attrs) {},
 		template: '<div id="piechart" style="margin: 0 auto;"></div>',
 		link: function(scope, element, attrs) {
-			var chart = new Highcharts.Chart({
-				chart: {
-					type: 'pie',
-					renderTo: 'piechart',
-					plotBackgroundColor: null,
-					plotBorderWidth: null,
-					plotShadow: false,
-					height: 500
-				},
-				title: {
-					text: ''
-				},
-				tooltip: {
-					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
-					percentageDecimals: 1
-				},
-				plotOptions: {
-					pie: {
-						allowPointSelect: true,
-						cursor: 'Pointer',
-						dataLabels: {
-							enabled: true,
-							color: '#000000',
-							connectorColor: '#000000',
-							format: '<b>{point.name}</b>: {point.percentage:.1f}%'
+			
+			var createChart = function(data) {
+				var chart = new Highcharts.Chart({
+					chart: {
+						type: 'pie',
+						renderTo: 'piechart',
+						plotBackgroundColor: null,
+						plotBorderWidth: null,
+						plotShadow: false,
+						height: 500
+					},
+					title: {
+						text: ''
+					},
+					tooltip: {
+						pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+						percentageDecimals: 1
+					},
+					plotOptions: {
+						pie: {
+							allowPointSelect: true,
+							cursor: 'Pointer',
+							dataLabels: {
+								enabled: true,
+								color: '#000000',
+								connectorColor: '#000000',
+								format: '<b>{point.name}</b>: {point.percentage:.1f}%'
+							}
 						}
-					}
-				},
-				series: [{
-					name: 'Time Breakdown',
-					data: processEntries(scope.timeentries)
-				}]
-			});
+					},
+					series: [{
+						name: 'Time Breakdown',
+						data: processEntries(scope.timeentries)
+					}]
+				});
+			};
 
 			scope.$watch("timeentries", function(newEntries) {
-				chart.series[0].setData(processEntries(newEntries));
+				// chart.series[0].setData(processEntries(newEntries));
+				createChart(processEntries(newEntries));
 			});
 		}
 	};

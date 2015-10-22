@@ -13,7 +13,16 @@ angular.module('time').factory('timeentries', function($http, auth) {
                 method: 'GET',
                 url: '/api/timeentries',
                 headers: auth.getHeaders(),
-                params: { 'day': day }
+                params: { 'day' : day }
+            });
+        },
+
+        getByRange : function(begin, end) {
+            return $http({
+                method: 'GET',
+                url: '/api/timeentries',
+                headers: auth.getHeaders(),
+                params: { 'begin' : begin, 'end' : end }
             });
         },
 

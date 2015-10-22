@@ -14,10 +14,11 @@
 	</div>
 </div>
 <div ng-show="loadComplete" class="container">
-	<h3>Time Entries for {{ day.toDateString() ? day.toDateString() : "All Days" }}</h3>
+	<h3 ng-show="state === 'Day'">Time Entries for {{ day.toDateString() ? day.toDateString() : "All Days" }}</h3>
+	<h3 ng-show="state === 'Week'">Time Entries Between {{ range.begin.toDateString() }} and {{ range.end.toDateString() }}</h3>
 	<div class="pie-chart" ng-if="timeEntries.length > 0" timeentries="timeEntries"></div>
 	<div class="clearfix">
-		<h4>Add a new time entry:</h4>
+		<h4>Add a new time entry for {{ day.toDateString() }}:</h4>
 		<form class="form-inline">
 			<div class="form-group">
 				<label for="name">name</label>

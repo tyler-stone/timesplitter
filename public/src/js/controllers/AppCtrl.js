@@ -1,5 +1,6 @@
 angular.module('time').controller('AppController', function($scope, $state, $log, categories, timeentries) {
 	$scope.day = new Date(new Date().toDateString());
+	$scope.range = { begin: 0, end: 0 };
 	$scope.state = "Day";
 	$scope.dp = {
 		opened: false
@@ -43,25 +44,57 @@ angular.module('time').controller('AppController', function($scope, $state, $log
 
 	$scope.$watch('day', function() {
 		console.log($scope.day);
+		$scope.range = generateRange();
 		doLoadingRefresh();
 	});
 
+	$scope.$watch('state', function() {
+		doLoadingRefresh();
+	});
+
+	var generateRange = function() {
+		var begin = new Date($scope.day);
+		begin.setDate($scope.day.getDate() - $scope.day.getDay());
+		var end = new Date($scope.day);
+		end.setDate($scope.day.getDate() + (7 - $scope.day.getDay()));
+
+		return { 'begin' : begin, 'end' : end };
+	};
+
 	var doRefresh = function() {
-		timeentries.getByDay($scope.day).then(function(result) {
-			if (result.data) {
-				$scope.timeEntries = result.data;
-			}
-		});
+		if ($scope.state === 'Day') {
+			timeentries.getByDay($scope.day).then(function(result) {
+				if (result.data) {
+					$scope.timeEntries = result.data;
+				}
+			});
+		} else {
+			timeentries.getByRange($scope.range.begin, $scope.range.end).then(function(result) {
+				if (result.data) {
+					$scope.timeEntries = result.data;
+				}
+			});
+		}
 	};
 
 	var doLoadingRefresh = function() {
 		$scope.loadComplete = false;
-		timeentries.getByDay($scope.day).then(function(result) {
-			$scope.loadComplete = true;
-			if (result.data) {
-				$scope.timeEntries = result.data;
-			}
-		});
+		if ($scope.state === 'Day') {
+			timeentries.getByDay($scope.day).then(function(result) {
+				$scope.loadComplete = true;
+				if (result.data) {
+					$scope.timeEntries = result.data;
+				}
+			});
+		} else {
+			timeentries.getByRange($scope.range.begin, $scope.range.end).then(function(result) {
+				$scope.loadComplete = true;
+				console.log(result.data);
+				if (result.data) {
+					$scope.timeEntries = result.data;
+				}
+			});
+		}
 	};
 
 	categories.get().then(function(result) {
